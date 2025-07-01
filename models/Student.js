@@ -44,6 +44,29 @@ const Student = sequelize.define('Student', {
   },
   verificationCode: {
     type: DataTypes.STRING
+  },
+  localidad: {
+    type: DataTypes.STRING
+  },
+  provincia: {
+    type: DataTypes.STRING
+  },
+  dni: {
+    type: DataTypes.STRING,
+    unique: true
+  },
+  cuil: {
+    type: DataTypes.STRING,
+    unique: true
+  },
+  celular: {
+    type: DataTypes.STRING
+  },
+  tituloSecundario: {
+    type: DataTypes.STRING
+  },
+  anioIngreso: {
+    type: DataTypes.INTEGER
   }
 });
 

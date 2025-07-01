@@ -27,27 +27,43 @@ const generateRandomPassword = () => {
 // Registro de estudiante
 exports.registerStudent = async (req, res) => {
   try {
-    const { nombre, apellido, email, fechaNacimiento, legajo, carrera, anioCursada, password } = req.body;
-    
-    // Validar email existente
+    const {
+      nombre,
+      apellido,
+      email,
+      fechaNacimiento,
+      legajo,
+      carrera,
+      anioCursada,
+      password,
+      dni,
+      cuil,
+      celular,
+      localidad,
+      provincia,
+      tituloSecundario,
+      anioIngreso
+    } = req.body;
+
+    // Validar email, legajo, dni, cuil existentes
     const existingEmail = await Student.findOne({ where: { email } });
     if (existingEmail) {
-      return res.status(400).json({ 
-        success: false,
-        message: 'El email ya está registrado' 
-      });
+      return res.status(400).json({ success: false, message: 'El email ya está registrado' });
     }
-    
-    // Validar legajo existente
     const existingLegajo = await Student.findOne({ where: { legajo } });
     if (existingLegajo) {
-      return res.status(400).json({ 
-        success: false,
-        message: 'El legajo ya está registrado' 
-      });
+      return res.status(400).json({ success: false, message: 'El legajo ya está registrado' });
     }
-    
-    // Crear estudiante (sin verificar aún)
+    const existingDni = await Student.findOne({ where: { dni } });
+    if (existingDni) {
+      return res.status(400).json({ success: false, message: 'El DNI ya está registrado' });
+    }
+    const existingCuil = await Student.findOne({ where: { cuil } });
+    if (existingCuil) {
+      return res.status(400).json({ success: false, message: 'El CUIL ya está registrado' });
+    }
+
+    // Crear estudiante
     const student = await Student.create({
       nombre,
       apellido,
@@ -57,6 +73,13 @@ exports.registerStudent = async (req, res) => {
       carrera,
       anioCursada,
       password,
+      dni,
+      cuil,
+      celular,
+      localidad,
+      provincia,
+      tituloSecundario,
+      anioIngreso,
       isVerified: false,
       verificationCode: Math.floor(100000 + Math.random() * 900000).toString() // Código de 6 dígitos
     });

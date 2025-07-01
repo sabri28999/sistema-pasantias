@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
 // Configuración de la base de datos y servidor
 const PORT = process.env.PORT || 3001;
 
-sequelize.sync({ force: true }) // Cambiar a true solo para desarrollo (borra todas las tablas)
+sequelize.sync({ force: false }) // Cambiar a true solo para desarrollo (borra todas las tablas)
   .then(() => {
     console.log('Conexión a la base de datos establecida');
     app.listen(PORT, () => {
